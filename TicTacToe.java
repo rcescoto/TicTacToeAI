@@ -46,7 +46,7 @@ public class TicTacToe extends JPanel {
     private class buttonListener implements ActionListener {//create another class for this
         
         public void actionPerformed(ActionEvent e) {
-			Object[] options1 = { "Yes", "No" };// what is this
+			Object[] options1 = { "Reset" };// what is this
 			int choice = 0;
             JButton buttonClicked = (JButton)e.getSource();
 
@@ -59,7 +59,40 @@ public class TicTacToe extends JPanel {
             }
 			
             if(checkForWin() == true) {
-                int result = JOptionPane.showOptionDialog(null, "Game Over! Reset?", "Game Over!", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                if(turn % 2 == 0){
+                    int result = JOptionPane.showOptionDialog(null, "X Wins!", "Game Over!", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options1, null);
+                    if (result == JOptionPane.YES_OPTION) {
+                        try {
+                            Runtime.getRuntime().exec("java Main");
+                            System.exit(0);
+                        } catch (IOException r) {
+
+                        }
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        
+                    }
+                }
+                else{
+                     int result = JOptionPane.showOptionDialog(null, "O wins!", "Game Over!", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options1, null);
+                    if (result == JOptionPane.YES_OPTION) {
+                        try {
+                            Runtime.getRuntime().exec("java Main");
+                            System.exit(0);
+                        } catch (IOException r) {
+
+                        }
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        
+                    }
+                }
+               
+				//resetButtons();
+				//buttonClicked.setEnabled(true);
+            }
+            else if(checkDraw(buttons)){
+                           int result = JOptionPane.showOptionDialog(null, "Draw!", "Game Over!", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options1, null);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
@@ -70,9 +103,7 @@ public class TicTacToe extends JPanel {
                     }
                 } else if (result == JOptionPane.NO_OPTION) {
                     
-                }
-				//resetButtons();
-				//buttonClicked.setEnabled(true);
+                } 
             } turn++;
             tb.turnSet(turn);
         }
@@ -108,9 +139,21 @@ public class TicTacToe extends JPanel {
             if ( buttons[a].getText().equals(buttons[b].getText()) && !buttons[a].getText().equals("") ) return true;
             else return false;
         }
+        public boolean checkDraw(JButton j[]){
+            int i;
+            for(i=0; i<=8; i++){
+                if(j[i].getText().equals("")){
+                    return false;
+                }
+            }
+            return true;
+        }
 	   //public int min_value(JButton j[]) {
 
         
-       //} 
+       //}
+       public void setStates(JButton j[]){
+
+       } 
     }
 }
